@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonrisa Prime Dental</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --mint:#F1FBFA;
+    --teal:#0EA5A0;
+    --teal-dark:#0A7A76;
+    --navy:#12233D;
+    --gray:#6B7686;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--navy); font-family:'Nunito Sans',sans-serif; font-weight:400; line-height:1.7;}
+  h1,h2,h3,.display{font-family:'Poppins',sans-serif; font-weight:600; color:var(--navy); line-height:1.2;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 32px;}
+  .eyebrow{font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); font-weight:700;}
+
+  nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.94); backdrop-filter:blur(6px); border-bottom:1px solid #E7F3F2; transition:box-shadow .3s;}
+  nav.scrolled{box-shadow:0 4px 18px rgba(18,35,61,0.06);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:78px;}
+  .logo{display:flex; align-items:center; gap:10px; font-family:'Poppins',sans-serif; font-size:20px; font-weight:700;}
+  .logo-mark{width:38px; height:38px; border-radius:50%; background:var(--teal); color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700;}
+  .nav-links{display:flex; gap:32px; font-size:14.5px; font-weight:600;}
+  .nav-links a{position:relative; padding-bottom:4px; color:var(--navy);}
+  .nav-links a::after{content:''; position:absolute; left:0; bottom:0; height:2px; width:0; background:var(--teal); transition:width .25s;}
+  .nav-links a:hover::after{width:100%;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 28px; border-radius:30px; font-size:14px; font-weight:700; transition:all .25s;}
+  .btn-teal{background:var(--teal); color:#fff;}
+  .btn-teal:hover{background:var(--teal-dark); transform:translateY(-2px); box-shadow:0 10px 22px rgba(14,165,160,0.3);}
+  .btn-outline{border:1.5px solid var(--navy); color:var(--navy);}
+  .btn-outline:hover{border-color:var(--teal); color:var(--teal); transform:translateY(-2px);}
+  .hamburger{display:none; flex-direction:column; gap:5px; width:26px; background:none; border:none; padding:8px; cursor:pointer;}
+  .hamburger span{display:block; height:2px; width:100%; background:var(--navy); border-radius:2px;}
+  .mobile-nav{display:none; flex-direction:column; background:#fff; border-bottom:1px solid #E7F3F2; max-height:0; overflow:hidden; transition:max-height .35s;}
+  .mobile-nav.open{max-height:420px;}
+  .mobile-nav a{padding:16px 32px; font-size:15px; font-weight:600; border-top:1px solid #EEF6F5;}
+
+  .hero{padding:90px 0 70px; background:linear-gradient(180deg, var(--mint), #fff);}
+  .hero .wrap{display:grid; grid-template-columns:1.05fr 0.95fr; gap:50px; align-items:center;}
+  .hero h1{font-size:52px; margin:16px 0 20px;}
+  .hero h1 .accent{color:var(--teal);}
+  .hero p{font-size:16.5px; color:var(--gray); max-width:440px; margin-bottom:32px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .hero-photo{position:relative; border-radius:24px; overflow:hidden; box-shadow:0 20px 50px rgba(18,35,61,0.14);}
+  .hero-photo img{width:100%; height:420px; object-fit:cover; display:block;}
+  .hero-badge{position:absolute; bottom:20px; left:20px; background:#fff; border-radius:14px; padding:14px 18px; display:flex; align-items:center; gap:12px; box-shadow:0 10px 24px rgba(18,35,61,0.12);}
+  .hero-badge .num{font-family:'Poppins',sans-serif; font-weight:700; font-size:22px; color:var(--teal);}
+  .hero-badge .lbl{font-size:11.5px; color:var(--gray);}
+
+  .hero-eyebrow,.hero h1,.hero p,.hero-actions{opacity:0; animation:rise .8s ease forwards;}
+  .hero h1{animation-delay:.1s;} .hero p{animation-delay:.22s;} .hero-actions{animation-delay:.34s;}
+  .hero-photo{opacity:0; animation:fade-in 1s ease forwards; animation-delay:.3s;}
+  @keyframes rise{from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);}}
+  @keyframes fade-in{from{opacity:0;} to{opacity:1;}}
+
+  section{padding:88px 0;}
+  .section-head{max-width:600px; margin:0 auto 54px; text-align:center;}
+  .section-head h2{font-size:38px; margin-top:10px;}
+  .section-head p{color:var(--gray); margin-top:14px; font-size:15.5px;}
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s, transform .7s;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+  [style*="--i"]{transition-delay:calc(var(--i) * 80ms);}
+
+  .servicios-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .servicio-card{background:var(--mint); border-radius:18px; padding:30px; transition:transform .3s, box-shadow .3s;}
+  .servicio-card:hover{transform:translateY(-6px); box-shadow:0 16px 32px rgba(14,165,160,0.14);}
+  .servicio-icon{width:52px; height:52px; border-radius:14px; background:var(--teal); display:flex; align-items:center; justify-content:center; margin-bottom:18px;}
+  .servicio-card h3{font-size:19px; margin-bottom:8px;}
+  .servicio-card p{font-size:14px; color:var(--gray);}
+
+  .porque{background:var(--navy); color:#fff;}
+  .porque .section-head h2{color:#fff;}
+  .porque .section-head p{color:#9FB0C8;}
+  .porque .eyebrow{color:#5EEAD4;}
+  .porque-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:30px; text-align:center;}
+  .porque-grid h3{font-family:'Poppins',sans-serif; font-size:38px; color:#5EEAD4;}
+  .porque-grid p{font-size:13px; color:#9FB0C8; margin-top:6px;}
+
+  .equipo-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .doc-card{text-align:center;}
+  .doc-photo{width:180px; height:180px; border-radius:50%; overflow:hidden; margin:0 auto 16px; border:4px solid var(--mint);}
+  .doc-photo img{width:100%; height:100%; object-fit:cover; transition:transform .5s;}
+  .doc-card:hover .doc-photo img{transform:scale(1.08);}
+  .doc-card h3{font-size:18px;}
+  .doc-card span{font-size:13px; color:var(--teal); font-weight:600;}
+  .doc-card p{font-size:13.5px; color:var(--gray); margin-top:6px; max-width:260px; margin-left:auto; margin-right:auto;}
+
+  .testimonios{background:var(--mint);}
+  .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .test-card{background:#fff; border-radius:16px; padding:28px; box-shadow:0 8px 20px rgba(18,35,61,0.05);}
+  .test-card .stars{color:#F5A623; font-size:14px; margin-bottom:10px;}
+  .test-card p{font-size:14px; color:var(--navy); font-style:italic;}
+  .test-card h4{margin-top:16px; font-size:14px;}
+  .test-card span{font-size:12px; color:var(--gray);}
+
+  .cita{background:linear-gradient(120deg, var(--teal), var(--teal-dark)); border-radius:24px; padding:56px; display:grid; grid-template-columns:1.2fr 0.8fr; gap:40px; align-items:center; color:#fff;}
+  .cita h2{color:#fff; font-size:34px;}
+  .cita p{color:#DFF7F5; margin-top:12px; font-size:15px;}
+  .cita .btn-outline{border-color:#fff; color:#fff;}
+  .cita .btn-outline:hover{background:#fff; color:var(--teal);}
+
+  .ubicacion-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+  .info-block{background:var(--mint); border-radius:18px; padding:32px;}
+  .info-block h3{font-size:19px; margin-bottom:14px;}
+  .info-row{display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #DCEEEC; font-size:14px;}
+  .info-row:last-child{border-bottom:none;}
+  .info-row span:first-child{color:var(--gray);}
+
+  footer{background:var(--navy); color:#9FB0C8; padding:50px 0 26px;}
+  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; align-items:center;}
+  footer .logo{color:#fff;}
+  .footer-bottom{text-align:center; font-size:12px; color:#5C6B85; margin-top:36px; padding-top:22px; border-top:1px solid #223250;}
+
+  .whatsapp-float{position:fixed; bottom:22px; right:22px; z-index:100; background:#25D366; color:#fff; width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(18,35,61,0.3); animation:pulse 2.6s ease-out infinite;}
+  @keyframes pulse{0%{box-shadow:0 6px 18px rgba(18,35,61,0.3), 0 0 0 0 rgba(37,211,102,0.5);} 70%{box-shadow:0 6px 18px rgba(18,35,61,0.3), 0 0 0 14px rgba(37,211,102,0);} 100%{box-shadow:0 6px 18px rgba(18,35,61,0.3), 0 0 0 0 rgba(37,211,102,0);}}
+
+  @media (max-width:900px){
+    .nav-links{display:none;} .hamburger{display:flex;} .mobile-nav{display:flex;}
+    nav .wrap .btn-teal{display:none;}
+    .hero .wrap{grid-template-columns:1fr;} .hero h1{font-size:36px;}
+    .servicios-grid{grid-template-columns:repeat(2,1fr);}
+    .porque-grid{grid-template-columns:repeat(2,1fr);}
+    .equipo-grid{grid-template-columns:1fr;}
+    .test-grid{grid-template-columns:1fr;}
+    .cita{grid-template-columns:1fr; text-align:center; padding:40px 28px;}
+    .ubicacion-grid{grid-template-columns:1fr;}
+    section{padding:56px 0;}
+    .section-head h2{font-size:30px;}
+    footer .wrap{flex-direction:column; text-align:center;}
+  }
+  @media (max-width:560px){
+    .servicios-grid,.porque-grid{grid-template-columns:1fr;}
+    .hero-actions{flex-direction:column; align-items:stretch;}
+    .btn{justify-content:center;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="logo-mark">SP</span> Sonrisa Prime</div>
+    <div class="nav-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#cita">Citas</a>
+      <a href="#ubicacion">Ubicación</a>
+    </div>
+    <a class="btn btn-teal" href="https://wa.me/5212461234567" target="_blank">Agendar cita</a>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#inicio">Inicio</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#cita">Citas</a>
+    <a href="#ubicacion">Ubicación</a>
+    <a href="https://wa.me/5212461234567" target="_blank" style="color:var(--teal);">Agendar cita →</a>
+  </div>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow hero-eyebrow">Clínica dental · Tlaxcala</span>
+      <h1>Sonrisas que <span class="accent">inspiran</span> confianza</h1>
+      <p>Atención dental integral con tecnología de punta y un equipo que cuida cada detalle de tu tratamiento, desde la primera consulta.</p>
+      <div class="hero-actions">
+        <a class="btn btn-teal" href="https://wa.me/5212461234567" target="_blank">Agenda tu cita</a>
+        <a class="btn btn-outline" href="#servicios">Ver servicios</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="https://images.pexels.com/photos/3952130/pexels-photo-3952130.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Consulta dental">
+      <div class="hero-badge">
+        <span class="num">+12</span>
+        <span class="lbl">años cuidando<br>sonrisas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Nuestros servicios</span>
+      <h2>Atención dental completa</h2>
+      <p>Desde revisiones de rutina hasta tratamientos especializados, todo bajo un mismo techo.</p>
+    </div>
+    <div class="servicios-grid">
+      <div class="servicio-card reveal" style="--i:0">
+        <div class="servicio-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 3c-3 0-5 2-5 5 0 3 1 5 1 8 0 2 1 3 2 3s1.5-2 2-4c.5 2 1 4 2 4s2-1 2-3c0-3 1-5 1-8 0-3-2-5-5-5Z"/></svg></div>
+        <h3>Limpieza dental</h3>
+        <p>Profilaxis profesional para prevenir caries y enfermedad periodontal.</p>
+      </div>
+      <div class="servicio-card reveal" style="--i:1">
+        <div class="servicio-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="5" y="9" width="14" height="7" rx="2"/><path d="M8 9V7a4 4 0 0 1 8 0v2"/></svg></div>
+        <h3>Ortodoncia</h3>
+        <p>Brackets tradicionales y alineadores estéticos para todas las edades.</p>
+      </div>
+      <div class="servicio-card reveal" style="--i:2">
+        <div class="servicio-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M4 8h16M4 8c0 6 4 11 8 11s8-5 8-11M4 8c0-2 2-3 8-3s8 1 8 3"/></svg></div>
+        <h3>Blanqueamiento</h3>
+        <p>Tratamiento seguro y efectivo para una sonrisa más luminosa.</p>
+      </div>
+      <div class="servicio-card reveal" style="--i:3">
+        <div class="servicio-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="9" r="3"/><path d="M12 12v9M9 21h6"/></svg></div>
+        <h3>Implantes dentales</h3>
+        <p>Reemplazo permanente con la más alta tecnología y garantía.</p>
+      </div>
+      <div class="servicio-card reveal" style="--i:4">
+        <div class="servicio-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 3v18M5 8l7-5 7 5M5 8v8l7 5 7-5V8"/></svg></div>
+        <h3>Endodoncia</h3>
+        <p>Tratamiento de conductos para salvar piezas dentales dañadas.</p>
+      </div>
+      <div class="servicio-card reveal" style="--i:5">
+        <div class="servicio-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M6 21c0-4 2.5-6 6-6s6 2 6 6"/></svg></div>
+        <h3>Odontopediatría</h3>
+        <p>Cuidado dental especializado y amigable para los más pequeños.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="porque">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Por qué elegirnos</span>
+      <h2>Cuidado dental en el que puedes confiar</h2>
+    </div>
+    <div class="porque-grid">
+      <div class="reveal" style="--i:0"><h3>12+</h3><p>Años de experiencia</p></div>
+      <div class="reveal" style="--i:1"><h3>8,500+</h3><p>Pacientes atendidos</p></div>
+      <div class="reveal" style="--i:2"><h3>6</h3><p>Especialistas certificados</p></div>
+      <div class="reveal" style="--i:3"><h3>4.9★</h3><p>Calificación promedio</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="equipo">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Nuestro equipo</span>
+      <h2>Especialistas dedicados a tu sonrisa</h2>
+    </div>
+    <div class="equipo-grid">
+      <div class="doc-card reveal" style="--i:0">
+        <div class="doc-photo"><img src="https://images.pexels.com/photos/4269950/pexels-photo-4269950.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Dra. Fernanda López"></div>
+        <h3>Dra. Fernanda López</h3><span>Odontología general</span>
+        <p>Especialista en tratamientos preventivos y restaurativos.</p>
+      </div>
+      <div class="doc-card reveal" style="--i:1">
+        <div class="doc-photo"><img src="https://images.pexels.com/photos/6812526/pexels-photo-6812526.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Dr. Sergio Torres"></div>
+        <h3>Dr. Sergio Torres</h3><span>Ortodoncista</span>
+        <p>Más de 10 años transformando sonrisas con ortodoncia moderna.</p>
+      </div>
+      <div class="doc-card reveal" style="--i:2">
+        <div class="doc-photo"><img src="https://images.pexels.com/photos/5355903/pexels-photo-5355903.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Dra. Karla Méndez"></div>
+        <h3>Dra. Karla Méndez</h3><span>Odontopediatra</span>
+        <p>Hace que la primera visita al dentista sea una experiencia sin miedo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Testimonios</span>
+      <h2>Lo que dicen nuestros pacientes</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal" style="--i:0">
+        <div class="stars">★★★★★</div>
+        <p>"Le tenía pánico al dentista y aquí me hicieron sentir tranquila desde la primera cita."</p>
+        <h4>Lucía Fernández</h4><span>Paciente desde 2023</span>
+      </div>
+      <div class="test-card reveal" style="--i:1">
+        <div class="stars">★★★★★</div>
+        <p>"Mi ortodoncia quedó perfecta. El seguimiento mensual siempre fue puntual y muy profesional."</p>
+        <h4>Emilio Castañeda</h4><span>Paciente desde 2022</span>
+      </div>
+      <div class="test-card reveal" style="--i:2">
+        <div class="stars">★★★★★</div>
+        <p>"Llevo a mis dos hijos aquí. La Dra. Karla tiene una paciencia increíble con los niños."</p>
+        <h4>Mariana Ortiz</h4><span>Paciente desde 2024</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cita">
+  <div class="wrap">
+    <div class="cita reveal">
+      <div>
+        <h2>Agenda tu cita hoy mismo</h2>
+        <p>Escríbenos por WhatsApp y te confirmamos un horario disponible el mismo día.</p>
+      </div>
+      <div style="display:flex; justify-content:center;">
+        <a class="btn btn-outline" href="https://wa.me/5212461234567" target="_blank">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ubicacion">
+  <div class="wrap ubicacion-grid">
+    <div class="info-block reveal">
+      <h3>Horarios de atención</h3>
+      <div class="info-row"><span>Lunes a viernes</span><span>9:00 – 19:00</span></div>
+      <div class="info-row"><span>Sábado</span><span>9:00 – 14:00</span></div>
+      <div class="info-row"><span>Domingo</span><span>Cerrado</span></div>
+    </div>
+    <div class="info-block reveal" style="--i:1">
+      <h3>Visítanos</h3>
+      <div class="info-row"><span>Dirección</span><span>Av. Juárez 210, Centro</span></div>
+      <div class="info-row"><span>Ciudad</span><span>Tlaxcala, Tlaxcala</span></div>
+      <div class="info-row"><span>WhatsApp</span><span>+52 246 123 4567</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo"><span class="logo-mark">SP</span> Sonrisa Prime</div>
+    <div style="font-size:13px;">Atención dental de confianza, cerca de ti.</div>
+  </div>
+  <div class="wrap footer-bottom">© 2026 Sonrisa Prime Dental — Todos los derechos reservados</div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/5212461234567" target="_blank" aria-label="Agenda por WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8">
+    <path d="M20 12a8 8 0 1 1-3.6-6.7L20 4l-1.2 3.4A8 8 0 0 1 20 12Z"/>
+    <path d="M8.5 8.5c0 4 3 7 7 7l1-2-2.5-1-1 1c-1.5-.7-2.5-1.7-3-3l1-1-1-2.5-2 .5Z"/>
+  </svg>
+</a>
+
+<script>
+  const navEl = document.querySelector('nav');
+  window.addEventListener('scroll', () => navEl.classList.toggle('scrolled', window.scrollY > 40));
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => mobileNav.classList.toggle('open'));
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
